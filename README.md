@@ -4,3 +4,6 @@ Rozwiązania zadań z kursu Kodowanie i kompresja danych na kierunku informatyka
 ### Lista 1
 - Entropia
 - Entropia warunkowa
+
+### Lista 2
+- Adaptacyjne kodowanie arytmetyczne ze skalowaniem
