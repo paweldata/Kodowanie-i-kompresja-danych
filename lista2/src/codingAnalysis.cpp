@@ -3,8 +3,8 @@
 #include "codingAnalysis.h"
 
 namespace codingAnalysis {
-    double getEntropy(std::map<char, int>&map, int sum) {
-        std::map<char, int>::iterator it;
+    double getEntropy(std::map<uint16_t, int>&map, int sum) {
+        std::map<uint16_t, int>::iterator it;
         double answer = 0;
 
         for (it = map.begin(); it != map.end(); it++)

@@ -4,7 +4,7 @@
 #include <map>
 
 namespace codingAnalysis {
-    double getEntropy(std::map<char, int>&map, int sum);
+    double getEntropy(std::map<uint16_t, int>&map, int sum);
     double getCompressionRate(const std::string& plaintext, const std::string& ciphertext);
 }
 

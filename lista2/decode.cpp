@@ -5,7 +5,7 @@
 #include "src/BitsTable.h"
 #include "src/codingAnalysis.h"
 
-void setValue(BitsTable& upLimit, BitsTable& downLimit, uint64_t sum, uint64_t count, int currCharValue) {
+void setValue(BitsTable& upLimit, BitsTable& downLimit, uint64_t sum, uint64_t count, uint16_t currCharValue) {
     uint64_t value = 0;
     uint64_t downLimitValue = downLimit.getValue();
 
@@ -62,15 +62,15 @@ int main(int argc, char *argv[]) {
     dataFile.open(argv[1]);
 
     if (!dataFile) {
-        printf("Error while opening the file %s", argv[1]);
+        printf("Error while opening the file %s\n", argv[1]);
         return 0;
     }
 
     std::ofstream answerFile;
     answerFile.open(argv[2]);
 
-    std::map<char, int> charMap;
-    std::map<char, int>::iterator it;
+    std::map<uint16_t, int> charMap;
+    std::map<uint16_t, int>::iterator it;
     for (int i = 0; i < 257; i++)
         charMap[i]++;
 
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     BitsTable bitsCode(0);
 
     uint64_t count = 0;
-    uint64_t sum = 256;
+    uint64_t sum = 257;
     uint64_t actualValue = 0;
     int codeIndex = 8;
     std::bitset<8> code;
@@ -99,11 +99,11 @@ int main(int argc, char *argv[]) {
             count += it->second;
         }
 
-        if (it->first == char(256))
+        if (it->first == 256)
             //end of code, stop program
             return 0;
 
-        answerFile << it->first;
+        answerFile << char(it->first);
 
         setValue(upLimit, downLimit, sum, count, it->second);
 

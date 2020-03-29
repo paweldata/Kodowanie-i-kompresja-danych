@@ -5,7 +5,7 @@
 #include "src/BitsTable.h"
 #include "src/codingAnalysis.h"
 
-void setValue(BitsTable& upLimit, BitsTable& downLimit, uint64_t  sum, uint64_t  count, int currCharValue);
+void setValue(BitsTable& upLimit, BitsTable& downLimit, uint64_t  sum, uint64_t  count, uint16_t currCharValue);
 bool checkFirstBit(BitsTable& upLimit, BitsTable& downLimit);
 bool checkSmallRange(BitsTable& upLimit, BitsTable& downLimit);
 void updateLimitsAndSendCode(BitsTable& upLimit, BitsTable& downLimit, std::bitset<8>& answer,
@@ -13,7 +13,7 @@ void updateLimitsAndSendCode(BitsTable& upLimit, BitsTable& downLimit, std::bits
 void trySendCode(std::bitset<8>& answer,int& answerIndex, std::ofstream& answerFile);
 void sendLastCode(BitsTable downLimit, std::bitset<8> answer, int& answerIndex, std::ofstream& file, int scale);
 
-void setValue(BitsTable& upLimit, BitsTable& downLimit, uint64_t  sum, uint64_t  count, int currCharValue) {
+void setValue(BitsTable& upLimit, BitsTable& downLimit, uint64_t  sum, uint64_t  count, uint16_t currCharValue) {
     uint64_t value = 0;
     uint64_t downLimitValue = downLimit.getValue();
 
@@ -108,15 +108,15 @@ int main(int argc, char *argv[]) {
     dataFile.open(argv[1]);
 
     if (!dataFile) {
-        printf("Error while opening the file %s", argv[1]);
+        printf("Error while opening the file %s\n", argv[1]);
         return 0;
     }
 
     std::ofstream answerFile;
-    answerFile.open(argv[2], std::ios::out | std::ios::binary);
+    answerFile.open(argv[2]);
 
-    std::map<char, int> charMap;
-    std::map<char, int>::iterator it;
+    std::map<uint16_t, int> charMap;
+    std::map<uint16_t, int>::iterator it;
     for (int i = 0; i < 257; i++)
         charMap[i]++;
 
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
 
     char currentChar = 0;
     uint64_t count = 0;
-    uint64_t sum = 256;
+    uint64_t sum = 257;
     int scale = 0;
     int size = BitsTable::getSize();
     int answerIndex = 0;
@@ -136,12 +136,12 @@ int main(int argc, char *argv[]) {
         count = 0;
         it = charMap.begin();
 
-        while (it->first != currentChar) {
+        while (it->first != uint8_t(currentChar)) {
             count += it->second;
             it++;
         }
 
-        setValue(upLimit, downLimit, sum, count, charMap[currentChar]);
+        setValue(upLimit, downLimit, sum, count, charMap[uint8_t(currentChar)]);
         updateLimitsAndSendCode(upLimit, downLimit, answer, answerIndex, answerFile, size, scale);
 
         charMap[it->first]++;
@@ -151,12 +151,12 @@ int main(int argc, char *argv[]) {
     //file ends, send char(256) (end char)
     it = charMap.begin();
     count = 0;
-    while (it->first != char(256)) {
+    while (it->first != 256) {
         count += it->second;
         it++;
     }
 
-    setValue(upLimit, downLimit, sum, count, charMap[char(256)]);
+    setValue(upLimit, downLimit, sum, count, charMap[256]);
     updateLimitsAndSendCode(upLimit, downLimit, answer, answerIndex, answerFile, size, scale);
 
     //send downLimit
