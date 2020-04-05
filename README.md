@@ -7,3 +7,9 @@ Rozwiązania zadań z kursu Kodowanie i kompresja danych na kierunku informatyka
 
 ### Lista 2
 - Adaptacyjne kodowanie arytmetyczne ze skalowaniem
+
+### Lista 3
+- Algorytm LZW
+- Kodowanie uniwersalne
+	- Eliasa (gamma, delta, omega)
+	- Fibonacciego
