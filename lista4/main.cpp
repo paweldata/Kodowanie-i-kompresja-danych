@@ -11,6 +11,7 @@
 #include "src/JPEG_LS6.h"
 #include "src/JPEG_LS7.h"
 #include "src/JPEG_LSNew.h"
+#include "src/Original.h"
 
 std::vector<std::vector<Pixel> > getImage(std::ifstream& dataFile);
 std::vector<JPEG_LS*> createJpegVector();
@@ -41,10 +42,8 @@ std::vector<std::vector<Pixel> > getImage(std::ifstream& dataFile) {
     uint8_t currChar;
 
     // get header
-    for (int i = 0; i < 18; i++) {
-        dataFile >> std::noskipws >> currChar;
-        header[i] = currChar;
-    }
+    for (int i = 0; i < 18; i++)
+        dataFile >> std::noskipws >> header[i];
 
     // skip imageId and color map data
     int lengthToSkip = header[0] + header[7] * (header[6] * 256 + header[5]) / 8;
@@ -58,12 +57,9 @@ std::vector<std::vector<Pixel> > getImage(std::ifstream& dataFile) {
     //main loop
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            dataFile >> std::noskipws >> currChar;
-            image[i][j].red = currChar;
-            dataFile >> std::noskipws >> currChar;
-            image[i][j].green = currChar;
-            dataFile >> std::noskipws >> currChar;
-            image[i][j].blue = currChar;
+            dataFile >> std::noskipws >> image[i][j].red;
+            dataFile >> std::noskipws >> image[i][j].green;
+            dataFile >> std::noskipws >> image[i][j].blue;
         }
     }
 
@@ -73,22 +69,14 @@ std::vector<std::vector<Pixel> > getImage(std::ifstream& dataFile) {
 std::vector<JPEG_LS*> createJpegVector() {
     std::vector<JPEG_LS*> jpegLsList(8);
 
-    JPEG_LS1* jpegLs1 = new JPEG_LS1("JPEG_LS1");
-    jpegLsList[0] = jpegLs1;
-    JPEG_LS2* jpegLs2 = new JPEG_LS2("JPEG_LS2");
-    jpegLsList[1] = jpegLs2;
-    JPEG_LS3* jpegLs3 = new JPEG_LS3("JPEG_LS3");
-    jpegLsList[2] = jpegLs3;
-    JPEG_LS4* jpegLs4 = new JPEG_LS4("JPEG_LS4");
-    jpegLsList[3] = jpegLs4;
-    JPEG_LS5* jpegLs5 = new JPEG_LS5("JPEG_LS5");
-    jpegLsList[4] = jpegLs5;
-    JPEG_LS6* jpegLs6 = new JPEG_LS6("JPEG_LS6");
-    jpegLsList[5] = jpegLs6;
-    JPEG_LS7* jpegLs7 = new JPEG_LS7("JPEG_LS7");
-    jpegLsList[6] = jpegLs7;
-    JPEG_LSNew* jpegLsNew = new JPEG_LSNew("JPEG_LSNew");
-    jpegLsList[7] = jpegLsNew;
+    jpegLsList[0] = new JPEG_LS1("JPEG_LS1");
+    jpegLsList[1] = new JPEG_LS2("JPEG_LS2");
+    jpegLsList[2] = new JPEG_LS3("JPEG_LS3");
+    jpegLsList[3] = new JPEG_LS4("JPEG_LS4");
+    jpegLsList[4] = new JPEG_LS5("JPEG_LS5");
+    jpegLsList[5] = new JPEG_LS6("JPEG_LS6");
+    jpegLsList[6] = new JPEG_LS7("JPEG_LS7");
+    jpegLsList[7] = new JPEG_LSNew("JPEG_LSNew");
 
     return jpegLsList;
 }
@@ -119,6 +107,13 @@ void showResult(std::vector<std::vector<Pixel> > image, std::vector<JPEG_LS*> jp
         printf("%s\t%f\t%f\t%f\t%f\n", jpeg->getName().c_str(), jpeg->getAllColorsEntropy(),
                jpeg->getRedEntropy(), jpeg->getGreenEntropy(), jpeg->getBlueEntropy());
     }
+
+    auto* original = new Original("Original image");
+    original->calculateEntropy(image);
+
+    printf("%s\t%f\t%f\t%f\t%f\n", original->getName().c_str(), original->getAllColorsEntropy(),
+           original->getRedEntropy(), original->getGreenEntropy(), original->getBlueEntropy());
+
 
     printf("Best in all colors : %s\n", bestAllColors->getName().c_str());
     printf("Best in red : %s\n", bestRed->getName().c_str());

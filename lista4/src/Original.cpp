@@ -1,6 +1,6 @@
-#include "JPEG_LS1.h"
+#include "Original.h"
 
-void JPEG_LS1::calculateEntropy(std::vector<std::vector<Pixel>>& image) {
+void Original::calculateEntropy(std::vector<std::vector<Pixel>> &image) {
     std::map<std::vector<uint8_t>, uint32_t> allColorsMap;
     std::map<uint8_t, uint32_t> redMap;
     std::map<uint8_t, uint32_t> greenMap;
@@ -12,16 +12,11 @@ void JPEG_LS1::calculateEntropy(std::vector<std::vector<Pixel>>& image) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             Pixel currPixel = image[i][j];
-            Pixel north = (i == 0) ? this->frame : image[i - 1][j];
 
-            uint8_t red = currPixel.red - north.red;
-            uint8_t green = currPixel.green - north.green;
-            uint8_t blue = currPixel.blue - north.blue;
-
-            redMap[red]++;
-            greenMap[green]++;
-            blueMap[blue]++;
-            allColorsMap[std::vector<uint8_t>{red, green, blue}]++;
+            redMap[currPixel.red]++;
+            greenMap[currPixel.green]++;
+            blueMap[currPixel.blue]++;
+            allColorsMap[std::vector<uint8_t>{currPixel.red, currPixel.green, currPixel.blue}]++;
         }
     }
 
@@ -29,8 +24,4 @@ void JPEG_LS1::calculateEntropy(std::vector<std::vector<Pixel>>& image) {
     this->redEntropy = this->getEntropy(redMap);
     this->greenEntropy = this->getEntropy(greenMap);
     this->blueEntropy = this->getEntropy(blueMap);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> add list 4

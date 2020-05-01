@@ -13,3 +13,6 @@ Rozwiązania zadań z kursu Kodowanie i kompresja danych na kierunku informatyka
 - Kodowanie uniwersalne
 	- Eliasa (gamma, delta, omega)
 	- Fibonacciego
+
+### Lista 4
+- Kodowanie predyktorami JPEG-LS

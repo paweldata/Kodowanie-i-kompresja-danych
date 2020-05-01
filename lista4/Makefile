@@ -2,8 +2,8 @@
 
 all: main clean
 
-main: main.o JPEG_LS.o JPEG_LS1.o JPEG_LS2.o JPEG_LS3.o JPEG_LS4.o JPEG_LS5.o JPEG_LS6.o JPEG_LS7.o JPEG_LSNew.o
-	g++ -o main main.o JPEG_LS.o JPEG_LS1.o JPEG_LS2.o JPEG_LS3.o JPEG_LS4.o JPEG_LS5.o JPEG_LS6.o JPEG_LS7.o JPEG_LSNew.o
+main: main.o JPEG_LS.o JPEG_LS1.o JPEG_LS2.o JPEG_LS3.o JPEG_LS4.o JPEG_LS5.o JPEG_LS6.o JPEG_LS7.o JPEG_LSNew.o Original.o
+	g++ -o main main.o JPEG_LS.o JPEG_LS1.o JPEG_LS2.o JPEG_LS3.o JPEG_LS4.o JPEG_LS5.o JPEG_LS6.o JPEG_LS7.o JPEG_LSNew.o Original.o
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -34,6 +34,9 @@ JPEG_LS7.o: src/JPEG_LS7.cpp src/JPEG_LS7.h
 
 JPEG_LSNew.o: src/JPEG_LSNew.cpp src/JPEG_LSNew.h
 	g++ -c src/JPEG_LSNew.cpp -o JPEG_LSNew.o
+
+Original.o: src/Original.cpp src/Original.h
+	g++ -c src/Original.cpp -o Original.o
 
 clean:
 	rm -f *.o
