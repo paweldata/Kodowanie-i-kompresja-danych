@@ -20,25 +20,25 @@ void JPEG_LSNew::calculateEntropy(std::vector<std::vector<Pixel>> &image) {
             uint8_t green = currPixel.green;
             uint8_t blue = currPixel.blue;
 
-            if (northwest.red > std::max(north.red, west.red)) {
+            if (northwest.red >= std::max(north.red, west.red)) {
                 red -= std::max(north.red, west.red);
-            } else if (northwest.red < std::min(north.red, west.red)) {
+            } else if (northwest.red <= std::min(north.red, west.red)) {
                 red -= std::min(north.red, west.red);
             } else {
                 red -= north.red + west.red - northwest.red;
             }
 
-            if (northwest.green > std::max(north.green, west.green)) {
+            if (northwest.green >= std::max(north.green, west.green)) {
                 green -= std::max(north.green, west.green);
-            } else if (northwest.green < std::min(north.green, west.green)) {
+            } else if (northwest.green <= std::min(north.green, west.green)) {
                 green -= std::min(north.green, west.green);
             } else {
                 green -= north.green + west.green - northwest.green;
             }
 
-            if (northwest.blue > std::max(north.blue, west.blue)) {
+            if (northwest.blue >= std::max(north.blue, west.blue)) {
                 blue -= std::max(north.blue, west.blue);
-            } else if (northwest.blue < std::min(north.blue, west.blue)) {
+            } else if (northwest.blue <= std::min(north.blue, west.blue)) {
                 blue -= std::min(north.blue, west.blue);
             } else {
                 blue -= north.blue + west.blue - northwest.blue;
