@@ -16,3 +16,6 @@ Rozwiązania zadań z kursu Kodowanie i kompresja danych na kierunku informatyka
 
 ### Lista 4
 - Kodowanie predyktorami JPEG-LS
+
+### Lista 5
+- Kwantyzacja wektorowa obrazu
