@@ -70,27 +70,28 @@ void DictionaryTree::createNode(const std::vector<Pixel>& pixels, Node* node) {
     std::vector<Pixel> pixelsLeft;
     std::vector<Pixel> pixelsRight;
 
-    for (Pixel pixel : pixels) {
-        if (DictionaryTree::distance(pixel, node->left->pixel) < DictionaryTree::distance(pixel, node->right->pixel)) {
-            pixelsLeft.push_back(pixel);
-        } else {
-            pixelsRight.push_back(pixel);
+    Pixel pixelLeftPrev;
+    Pixel pixelRightPrev;
+
+    do {
+        pixelLeftPrev = node->left->pixel;
+        pixelRightPrev = node->right->pixel;
+
+        pixelsLeft.clear();
+        pixelsRight.clear();
+
+        for (Pixel pixel : pixels) {
+            if (DictionaryTree::distance(pixel, node->left->pixel) <
+                DictionaryTree::distance(pixel, node->right->pixel)) {
+                pixelsLeft.push_back(pixel);
+            } else {
+                pixelsRight.push_back(pixel);
+            }
         }
-    }
 
-    DictionaryTree::setAverageDistance(node->left, pixelsLeft);
-    DictionaryTree::setAverageDistance(node->right, pixelsRight);
-
-    pixelsLeft.clear();
-    pixelsRight.clear();
-
-    for (Pixel pixel : pixels) {
-        if (DictionaryTree::distance(pixel, node->left->pixel) < DictionaryTree::distance(pixel, node->right->pixel)) {
-            pixelsLeft.push_back(pixel);
-        } else {
-            pixelsRight.push_back(pixel);
-        }
-    }
+        DictionaryTree::setAverageDistance(node->left, pixelsLeft);
+        DictionaryTree::setAverageDistance(node->right, pixelsRight);
+    } while (!node->left->pixel.theSameValues(pixelLeftPrev) || !node->right->pixel.theSameValues(pixelRightPrev));
 
     this->createNode(pixelsLeft, node->left);
     this->createNode(pixelsRight, node->right);

@@ -9,4 +9,4 @@ Program na podstawie obrazu wejściowego o formacie TGA (dla domyślnych koloró
 $ make
 $ ./main dataFile answerFile colorNumber
 ```
-0 <= colorNumber <= 24
+0 <= colorNumber <= 24, liczba kolorów wynosi 2^colorNumber
