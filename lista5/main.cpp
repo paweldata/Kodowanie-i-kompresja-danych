@@ -47,6 +47,9 @@ int main(int argc, char** argv) {
         }
     }
 
+    parameters->dataFile.close();
+    parameters->answerFile.close();
+
     double mse = double(valueToMse) / (header.height * header.width);
     double snr = (double(valueToSnr) / ((header.height * header.width))) / mse;
     printf("MSE = %f\n", mse);
