@@ -19,3 +19,8 @@ Rozwiązania zadań z kursu Kodowanie i kompresja danych na kierunku informatyka
 
 ### Lista 5
 - Kwantyzacja wektorowa obrazu
+
+### Lista 6
+- Kodowanie różnicowe
+- Filtry
+- Kwatyzatory nierównomierne
