@@ -1,7 +1,7 @@
 # Kodowanie-i-kompresja-danych
 ## Lista 5
 
-#### Kodowanie różnociwe
+#### Kodowanie różnicowe
 
 Program koduje różnicowo obraz wejściowy o formacie TGA dla podanej ilości bitów na kolor.
 
