@@ -24,3 +24,6 @@ Rozwiązania zadań z kursu Kodowanie i kompresja danych na kierunku informatyka
 - Kodowanie różnicowe
 - Filtry
 - Kwatyzatory nierównomierne
+
+### Lista 7
+- Rozszerzony kod Hamminga
