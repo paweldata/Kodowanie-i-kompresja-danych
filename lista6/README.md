@@ -1,5 +1,5 @@
 # Kodowanie-i-kompresja-danych
-## Lista 5
+## Lista 6
 
 #### Kodowanie różnicowe
 
